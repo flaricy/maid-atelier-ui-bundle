@@ -1,0 +1,12 @@
+Maid Atelier UI Bundle
+======================
+
+This repository combines two modified community plugins for DeepSeek Harness:
+
+- Maid Atelier, based on Small-tailqwq/dsh-deep-whale.
+- DSH Side Panel, based on ccq1/dsh-side-panel.
+
+The repository is unofficial and is not affiliated with or endorsed by
+DeepSeek, DeepSeek Harness, or either upstream maintainer. Each plugin keeps
+its own controlling licence, attribution, modification notice, and third-party
+notices. See LICENSE_SCOPE.md for the path-by-path map.

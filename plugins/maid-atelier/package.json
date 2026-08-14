@@ -1,0 +1,67 @@
+{
+  "name": "@dsh-external/dsh-client-ui-skin-maid-atelier",
+  "description": "Hot-pluggable Deep-sea maid atelier skin with character backdrop and ornamental navy UI for the dsh web GUI",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaricy/maid-atelier-ui-bundle.git",
+    "directory": "plugins/maid-atelier"
+  },
+  "homepage": "https://github.com/flaricy/maid-atelier-ui-bundle#readme",
+  "bugs": "https://github.com/flaricy/maid-atelier-ui-bundle/issues",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "skin",
+    "web-ui"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./skin.json": "./skin.json",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run"
+  },
+  "license": "CC-BY-NC-SA-4.0",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "jsdom": "29.1.1",
+    "lightningcss": "^1.32.0",
+    "tsdown": "0.22.14",
+    "vitest": "4.1.10"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "skin.json",
+    "preview",
+    "src",
+    "tests",
+    "LICENSE",
+    "NOTICE",
+    "ASSET_LICENSES.md",
+    "CHANGELOG.md",
+    "THIRD_PARTY_NOTICES.md",
+    "third_party_licenses",
+    "README.md"
+  ]
+}

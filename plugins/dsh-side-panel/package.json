@@ -1,0 +1,83 @@
+{
+  "name": "@dsh-external/dsh-side-panel",
+  "version": "0.2.0",
+  "description": "Git review, terminal, and file workspace panel for DSH Web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaricy/maid-atelier-ui-bundle.git",
+    "directory": "plugins/dsh-side-panel"
+  },
+  "homepage": "https://github.com/flaricy/maid-atelier-ui-bundle#readme",
+  "bugs": "https://github.com/flaricy/maid-atelier-ui-bundle/issues",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "side-panel",
+    "web-ui"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./invariant": {
+      "types": "./lib/types/invariant.d.ts",
+      "default": "./lib/invariant.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "THIRD_PARTY_NOTICES.md",
+    "third_party_licenses"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsdown -c tsdown.config.mjs",
+    "check": "tsc -p tsconfig.json --noEmit --pretty false",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.12",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-markdown": "^6.5.2",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "codemirror": "^6.0.2",
+    "dompurify": "^3.2.6",
+    "marked": "^18.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": "^22.19 || >=24"
+  },
+  "license": "BSD-3-Clause"
+}

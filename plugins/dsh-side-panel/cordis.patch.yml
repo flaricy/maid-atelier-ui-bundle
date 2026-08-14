@@ -1,0 +1,7 @@
+- insert:
+    - id: side-panel
+      name: '@dsh-external/dsh-side-panel'
+      config:
+        maxTextBytes: 2097152
+        maxImageBytes: 10485760
+        searchMaxResults: 200

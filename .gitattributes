@@ -1,0 +1,5 @@
+*.webp binary
+*.png binary
+plugins/dsh-side-panel/lib/** -whitespace
+plugins/dsh-side-panel/THIRD_PARTY_NOTICES.md -whitespace
+plugins/maid-atelier/LICENSE -whitespace

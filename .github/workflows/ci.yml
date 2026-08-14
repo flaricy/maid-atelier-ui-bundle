@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  side-panel:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/dsh-side-panel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: plugins/dsh-side-panel/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+
+  maid-atelier:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/maid-atelier
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: plugins/maid-atelier/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
