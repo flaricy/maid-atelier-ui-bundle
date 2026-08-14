@@ -1,8 +1,8 @@
 <div align="center">
 
-<h1>Maid Atelier UI Bundle</h1>
+<h1>Maid Atelier Theme + Side Panel Bundle</h1>
 
-<p><strong>给 DeepSeek Harness Web 一套更安静、更清晰，也更好用的工作界面。</strong></p>
+<p><strong>给 DeepSeek Harness Web 一套优美、实用的工作界面。</strong></p>
 
 <p>
   <img alt="DSH Web" src="https://img.shields.io/badge/DSH-Web-172347?style=flat-square">
@@ -12,14 +12,14 @@
 
 <img src="docs/images/hero.webp" alt="Maid Atelier 主题界面预览" width="100%">
 
-<sub>主题、对话和项目上下文，都在同一个工作区里。</sub>
-
 </div>
 
 ## 包含什么
 
-- **Maid Atelier** — 柔和的深海蓝主题，支持亮色与暗色界面。
-- **Side Panel** — 在对话右侧浏览文件、搜索内容、预览代码、Markdown 与图片，并提供 Git 审查和终端。
+作者修改之后的
+
+- **Maid Atelier** — 柔和的深海蓝主题，支持亮色与暗色界面。推荐使用 *浅色* 主题。
+- **Side Panel** — 在对话右侧浏览文件、搜索内容、预览代码、Markdown 与图片。
 
 ## 安装
 
@@ -46,9 +46,7 @@ dsh web
 
 1. Maid Atelier 会自动生效，并跟随亮色或暗色模式。
 2. 点击页面右上角的 **文件** 按钮打开侧栏。
-3. 选择文件即可查看代码、Markdown 或图片预览。
 
-请从自己的项目目录运行 `dsh web`；这个目录就是文件侧栏和终端使用的工作区。
 
 ## 默认设置
 
