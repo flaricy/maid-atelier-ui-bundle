@@ -373,15 +373,89 @@ describe('Maid Atelier skin apply', () => {
     expect(CSS).toMatch(/\[class\*='ConversationRoot'\]\s*\{[^}]*background: transparent/s)
   })
 
-  it('keeps compact process rows readable over the illustrated canvas', () => {
+  it('keeps the live turn status readable over the illustrated canvas', () => {
+    const statusRule = CSS.match(
+      /\[data-chat-flow\] > \[role='status'\]\[aria-live='polite'\]\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    const clockRule = CSS.match(
+      /\[data-chat-flow\] > \[role='status'\]\[aria-live='polite'\] > span\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    const darkStatusRule = CSS.match(
+      /body\[data-dsh-maid-atelier\]\[data-ds-dark-theme\]\s+\[data-chat-flow\] > \[role='status'\]\[aria-live='polite'\]\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    expect(statusRule).toContain('background: rgba(232, 238, 249, 0.86)')
+    expect(statusRule).toContain('background-clip: border-box')
+    expect(statusRule).toContain('-webkit-background-clip: border-box')
+    expect(statusRule).toContain('color: #29477f')
+    expect(statusRule).toContain('-webkit-text-fill-color: currentColor')
+    expect(statusRule).toContain('animation: none')
+    expect(clockRule).toContain('color: #4d5d7f')
+    expect(clockRule).toContain('border-left: 1px solid rgba(61, 83, 132, 0.18)')
+    expect(darkStatusRule).toContain('background: rgba(15, 28, 61, 0.88)')
+    expect(darkStatusRule).toContain('color: #e7ecf7')
+  })
+
+  it('uses one quiet surface for compact process rows in every interaction state', () => {
+    document.body.innerHTML = `
+      <div data-chat-flow>
+        <div data-variant="bash" data-state="running"></div>
+        <div data-variant="bash" data-expandable aria-expanded="false"></div>
+        <div data-variant="think"><div data-disclosure-row aria-expanded="false"></div></div>
+        <div data-variant="think"><div data-disclosure-row aria-expanded="true"></div></div>
+      </div>
+    `
+    const surfaceSelector = [
+      "[data-chat-flow] [data-variant='bash']",
+      '[data-chat-flow] [data-variant] [data-disclosure-row]',
+    ].join(', ')
+    expect(document.querySelectorAll(surfaceSelector)).toHaveLength(4)
     expect(CSS).toMatch(
-      /\[data-chat-flow\] \[data-variant\]\s*\{[^}]*--dsw-alias-label-secondary: #33466e[^}]*--dsw-alias-label-tertiary: #3b4f76/s,
+      /\[data-chat-flow\] \[data-variant\]\s*\{[^}]*--dsw-alias-label-secondary: #2f436b[^}]*--dsw-alias-label-tertiary: #405579/s,
+    )
+    const processSurfaceRule = CSS.match(
+      /\[data-chat-flow\]\s+:is\(\s*\[data-variant='bash'\],\s*\[data-variant\] \[data-disclosure-row\]\s*\)\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    expect(processSurfaceRule).toContain('background: rgba(232, 238, 249, 0.78)')
+    expect(CSS).not.toMatch(/\[data-variant\][^{]*\[aria-expanded='false'\]/s)
+    expect(CSS).not.toMatch(/rgba\(248, 250, 255, 0\.76\)/)
+    expect(processSurfaceRule).not.toContain('backdrop-filter')
+    expect(CSS).toMatch(/\[class\*='title'\]\s*\{[^}]*font-weight: 600/s)
+    expect(CSS).toMatch(/\[class\*='summary'\]\s*\{[^}]*font-weight: 400/s)
+  })
+
+  it('gives message-tail icon actions a stable contrast surface over artwork', () => {
+    document.body.innerHTML = `
+      <div data-turn-tail>
+        <div>
+          <button aria-label="Copy"><svg></svg></button>
+          <div data-slot="conversation.chat.assistant-actions" style="display: contents">
+            <button aria-label="Good response"><svg></svg></button>
+          </div>
+          <button>paper.md</button>
+        </div>
+      </div>
+    `
+    const iconSelector = '[data-turn-tail] button[aria-label]:has(> svg)'
+    expect(document.querySelectorAll(iconSelector)).toHaveLength(2)
+
+    const iconRule = CSS.match(
+      /\[data-turn-tail\] button\[aria-label\]:has\(> svg\)\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    const darkIconRule = CSS.match(
+      /body\[data-dsh-maid-atelier\]\[data-ds-dark-theme\]\s+\[data-turn-tail\] button\[aria-label\]:has\(> svg\)\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
+    expect(iconRule).toContain('background: rgba(246, 248, 253, 0.84)')
+    expect(iconRule).toContain('border: 1px solid rgba(52, 70, 110, 0.2)')
+    expect(iconRule).toContain('color: #405579')
+    expect(iconRule).toContain('padding: 5px')
+    expect(iconRule).toContain('opacity: 1')
+    expect(darkIconRule).toContain('background: rgba(17, 31, 66, 0.88)')
+    expect(darkIconRule).toContain('color: #b9c6e0')
+    expect(CSS).toMatch(
+      /\[data-turn-tail\] button\[aria-label\]:has\(> svg\):focus-visible\s*\{[^}]*outline: 2px solid var\(--dsw-alias-brand-primary\)/s,
     )
     expect(CSS).toMatch(
-      /\[data-chat-flow\] \[data-variant\][\s\S]*?:is\(\[class\*='title'\], \[class\*='summary'\]\)\s*\{[^}]*font-weight: 500/s,
-    )
-    expect(CSS).toMatch(
-      /\[data-variant\]\[role='button'\]\[aria-expanded='false'\][\s\S]*?background: rgba\(248, 250, 255, 0\.76\)/s,
+      /\[data-turn-tail\] button\[aria-label\]\[data-active\]:has\(> svg\)\s*\{[^}]*background: rgba\(229, 212, 176, 0\.78\)/s,
     )
   })
 

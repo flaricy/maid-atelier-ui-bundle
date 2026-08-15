@@ -7,6 +7,11 @@
 - Prevented Cordis Plugin and future `sidebar.footer.action` entries from
   pushing Settings below the viewport. The footer now grows into the
   scrollable workspace in both wide and rail layouts.
+- Made the live turn status readable over artwork and unified Think, Bash,
+  and other process rows with one restrained surface across loading, expanded,
+  and settled states.
+- Raised message-tail action contrast with compact icon surfaces and clear
+  hover, keyboard-focus, selected, and unavailable states.
 
 ### Changed
 
