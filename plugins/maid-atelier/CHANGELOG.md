@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Fixed
+
+- Prevented Cordis Plugin and future `sidebar.footer.action` entries from
+  pushing Settings below the viewport. The footer now grows into the
+  scrollable workspace in both wide and rail layouts.
+
 ### Changed
 
 - Reduced background interference and restored the composer occlusion layer.
