@@ -2263,51 +2263,248 @@ body[data-dsh-maid-atelier][data-ds-dark-theme] [data-terminal] {
   color: #edf1fa;
 }
 
-/* Compact Bash/Think/Read rows sit directly over the illustrated canvas.
-   Give every process row its own accessible label pair instead of inheriting
-   the page's intentionally quiet tertiary gray. A medium weight keeps these
-   14px summaries legible without competing with assistant answers. */
-body[data-dsh-maid-atelier] [data-chat-flow] [data-variant] {
-  --dsw-alias-label-secondary: #33466e;
-  --dsw-alias-label-tertiary: #3b4f76;
-  --dsw-alias-label-caption: #42547a;
+/* Turn activity is a single live surface, so a small frosted capsule is cheap
+   and keeps both the state and elapsed clock readable over character art. The
+   upstream text-clip shimmer is intentionally replaced by stable copy; a
+   quiet jewel pulse carries the activity signal without washing glyphs out. */
+body[data-dsh-maid-atelier]
+  [data-chat-flow] > [role='status'][aria-live='polite'] {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 30px;
+  padding: 3px 10px;
+  border: 1px solid rgba(61, 83, 132, 0.18);
+  border-radius: 9px;
+  background: rgba(232, 238, 249, 0.86);
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  color: #29477f;
+  -webkit-text-fill-color: currentColor;
+  --dsw-alias-label-caption: #4d5d7f;
+  box-shadow:
+    0 2px 8px rgba(19, 38, 87, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(8px) saturate(0.82);
+  animation: none;
 }
 
-body[data-dsh-maid-atelier] [data-chat-flow] [data-variant]
-  :is([class*='title'], [class*='summary']) {
+body[data-dsh-maid-atelier]
+  [data-chat-flow] > [role='status'][aria-live='polite']::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #4c6fae;
+  box-shadow: 0 0 0 3px rgba(76, 111, 174, 0.13);
+  animation: maidAtelierTurnPulse 1.8s ease-in-out infinite;
+}
+
+body[data-dsh-maid-atelier]
+  [data-chat-flow] > [role='status'][aria-live='polite'] > span {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(61, 83, 132, 0.18);
+  color: #4d5d7f;
+  -webkit-text-fill-color: currentColor;
   font-weight: 500;
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-chat-flow] > [role='status'][aria-live='polite'] {
+  border-color: rgba(168, 185, 222, 0.22);
+  background: rgba(15, 28, 61, 0.88);
+  color: #e7ecf7;
+  --dsw-alias-label-caption: #b8c5e1;
+  box-shadow:
+    0 2px 9px rgba(0, 0, 0, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.07);
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-chat-flow] > [role='status'][aria-live='polite']::before {
+  background: #a8bbe7;
+  box-shadow: 0 0 0 3px rgba(168, 187, 231, 0.14);
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-chat-flow] > [role='status'][aria-live='polite'] > span {
+  border-left-color: rgba(168, 185, 222, 0.2);
+  color: #b8c5e1;
+}
+
+@keyframes maidAtelierTurnPulse {
+  0%, 100% { opacity: 0.58; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* Compact Bash/Think/Read rows sit directly over the illustrated canvas.
+   Every row receives the same restrained blue-gray veil whether it is
+   loading, expandable, open, or settled. The fill is deliberately unblurred:
+   long agent runs can contain hundreds of rows, so hierarchy comes from tint
+   and type rather than a stack of costly backdrop-filter layers. */
+body[data-dsh-maid-atelier] [data-chat-flow] [data-variant] {
+  --dsw-alias-label-secondary: #2f436b;
+  --dsw-alias-label-tertiary: #405579;
+  --dsw-alias-label-caption: #526486;
+}
+
+body[data-dsh-maid-atelier] [data-chat-flow] [data-variant] [class*='title'] {
+  font-weight: 600;
+}
+
+body[data-dsh-maid-atelier] [data-chat-flow] [data-variant] [class*='summary'] {
+  font-weight: 400;
 }
 
 body[data-dsh-maid-atelier] [data-chat-flow]
   :is(
-    [data-variant][role='button'][aria-expanded='false'],
-    [data-variant] [data-disclosure-row][aria-expanded='false']
+    [data-variant='bash'],
+    [data-variant] [data-disclosure-row]
   ) {
   box-sizing: border-box;
-  min-height: 30px;
-  padding: 3px 8px;
-  border: 1px solid rgba(71, 91, 145, 0.16);
-  border-radius: 7px;
-  background: rgba(248, 250, 255, 0.76);
-  box-shadow: 0 1px 4px rgba(19, 38, 87, 0.05);
-  backdrop-filter: blur(7px);
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid rgba(71, 91, 145, 0.14);
+  border-radius: 8px;
+  background: rgba(232, 238, 249, 0.78);
+  box-shadow:
+    0 1px 2px rgba(19, 38, 87, 0.04),
+    inset 0 1px rgba(255, 255, 255, 0.34);
+  transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+body[data-dsh-maid-atelier] [data-chat-flow]
+  :is(
+    [data-variant='bash'][data-expandable]:hover,
+    [data-variant] [data-disclosure-row][data-expandable]:hover
+  ) {
+  border-color: rgba(71, 91, 145, 0.24);
+  background: rgba(232, 238, 249, 0.88);
+}
+
+body[data-dsh-maid-atelier] [data-chat-flow]
+  :is(
+    [data-variant='bash']:focus-visible,
+    [data-variant] [data-disclosure-row]:focus-visible
+  ) {
+  border-color: rgba(70, 100, 164, 0.46);
+  outline: 2px solid rgba(70, 100, 164, 0.3);
+  outline-offset: 1px;
 }
 
 body[data-dsh-maid-atelier][data-ds-dark-theme]
   [data-chat-flow] [data-variant] {
-  --dsw-alias-label-secondary: #d7def0;
-  --dsw-alias-label-tertiary: #bdc9e3;
-  --dsw-alias-label-caption: #a9b8d8;
+  --dsw-alias-label-secondary: #dbe3f4;
+  --dsw-alias-label-tertiary: #b9c6e0;
+  --dsw-alias-label-caption: #9eafd0;
 }
 
 body[data-dsh-maid-atelier][data-ds-dark-theme] [data-chat-flow]
   :is(
-    [data-variant][role='button'][aria-expanded='false'],
-    [data-variant] [data-disclosure-row][aria-expanded='false']
+    [data-variant='bash'],
+    [data-variant] [data-disclosure-row]
   ) {
-  border-color: rgba(151, 169, 216, 0.2);
-  background: rgba(18, 31, 67, 0.8);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.16);
+  border-color: rgba(168, 185, 222, 0.16);
+  background: rgba(15, 28, 61, 0.82);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.14),
+    inset 0 1px rgba(255, 255, 255, 0.05);
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme] [data-chat-flow]
+  :is(
+    [data-variant='bash'][data-expandable]:hover,
+    [data-variant] [data-disclosure-row][data-expandable]:hover
+  ) {
+  border-color: rgba(168, 185, 222, 0.25);
+  background: rgba(20, 36, 75, 0.9);
+}
+
+/* Message-tail actions sit over the illustrated floor and character art.
+   Give each SVG-only control a compact local surface instead of wrapping the
+   whole actions-and-metrics row in another card. This keeps the strip quiet
+   while preserving icon contrast wherever the artwork changes underneath. */
+body[data-dsh-maid-atelier]
+  [data-turn-tail] button[aria-label]:has(> svg) {
+  box-sizing: border-box;
+  padding: 5px;
+  border: 1px solid rgba(52, 70, 110, 0.2);
+  border-radius: 8px;
+  background: rgba(246, 248, 253, 0.84);
+  color: #405579;
+  opacity: 1;
+  box-shadow:
+    0 1px 3px rgba(19, 38, 87, 0.1),
+    inset 0 1px rgba(255, 255, 255, 0.48);
+  transition:
+    color 120ms ease,
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+body[data-dsh-maid-atelier]
+  [data-turn-tail] button[aria-label]:has(> svg):hover:not(:disabled):not([data-unavailable]) {
+  border-color: rgba(61, 83, 132, 0.32);
+  background: rgba(226, 233, 247, 0.96);
+  color: #243866;
+  box-shadow:
+    0 2px 5px rgba(19, 38, 87, 0.13),
+    inset 0 1px rgba(255, 255, 255, 0.58);
+}
+
+body[data-dsh-maid-atelier]
+  [data-turn-tail] button[aria-label]:has(> svg):focus-visible {
+  border-color: rgba(61, 83, 132, 0.48);
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 1px;
+}
+
+body[data-dsh-maid-atelier]
+  [data-turn-tail] button[aria-label][data-active]:has(> svg) {
+  border-color: rgba(156, 119, 52, 0.52);
+  background: rgba(229, 212, 176, 0.78);
+  color: #61471e;
+}
+
+body[data-dsh-maid-atelier]
+  [data-turn-tail] button[aria-label]:has(> svg):is(:disabled, [data-unavailable]) {
+  color: #526486;
+  opacity: 0.62;
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-turn-tail] button[aria-label]:has(> svg) {
+  border-color: rgba(177, 195, 230, 0.26);
+  background: rgba(17, 31, 66, 0.88);
+  color: #b9c6e0;
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.24),
+    inset 0 1px rgba(255, 255, 255, 0.07);
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-turn-tail] button[aria-label]:has(> svg):hover:not(:disabled):not([data-unavailable]) {
+  border-color: rgba(183, 201, 235, 0.42);
+  background: rgba(40, 60, 107, 0.96);
+  color: #e7ecf7;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px rgba(255, 255, 255, 0.1);
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-turn-tail] button[aria-label][data-active]:has(> svg) {
+  border-color: rgba(213, 181, 102, 0.62);
+  background: rgba(128, 96, 43, 0.62);
+  color: #fff2d0;
+}
+
+body[data-dsh-maid-atelier][data-ds-dark-theme]
+  [data-turn-tail] button[aria-label]:has(> svg):is(:disabled, [data-unavailable]) {
+  color: #aebbd6;
 }
 
 body[data-dsh-maid-atelier] [class*='userRow'] [class*='bubble'] {
@@ -2345,9 +2542,8 @@ body[data-dsh-maid-atelier][data-ds-dark-theme]
 }
 
 /* Running reasoning becomes a restrained gold-and-periwinkle service sweep.
-   The data hooks are stable and later assets can replace this CSS-only pass.
-   The collapsed Think row itself carries no container decoration: it stays a
-   bare disclosure row, matching the tool-call rows beside it. */
+   The data hooks are stable and later assets can replace this CSS-only pass;
+   the shared process-row veil remains steady beneath the animation. */
 body[data-dsh-maid-atelier] [data-variant='think'][data-state='running'] [class*='row']::after {
   width: 240px;
   background: linear-gradient(90deg, transparent, rgba(225, 207, 170, 0.3) 46%, rgba(142, 165, 218, 0.24) 62%, transparent);
@@ -2753,6 +2949,11 @@ body[data-dsh-maid-atelier] [class*='titlebar'] [class*='button']:hover {
   background: rgba(87, 117, 190, 0.28);
 }
 @media (prefers-reduced-motion: reduce) {
+  body[data-dsh-maid-atelier]
+    [data-chat-flow] > [role='status'][aria-live='polite']::before {
+    animation: none;
+  }
+
   body[data-dsh-maid-atelier] [data-maid-session-row] svg[data-state='ongoing'] > rect {
     animation: none;
     opacity: 0.2;
