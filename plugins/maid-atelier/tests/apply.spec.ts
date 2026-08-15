@@ -211,7 +211,9 @@ describe('Maid Atelier skin apply', () => {
         <div>
           <div class="fixture_footArea fixture_header"></div>
           <div class="fixture_footer">
-            <div data-slot="sidebar.footer.action"></div>
+            <div data-slot="sidebar.footer.action">
+              <button data-cordis-badge="1">Cordis Plugin</button>
+            </div>
             <div><div data-slot="sidebar.settings" style="display: contents">
               <button><div data-slot="settings.trigger">设置</div></button>
             </div></div>
@@ -223,6 +225,10 @@ describe('Maid Atelier skin apply', () => {
 
     expect(document.querySelector('.fixture_header')?.hasAttribute('data-maid-sidebar-footer')).toBe(false)
     expect(document.querySelector('.fixture_footer')?.hasAttribute('data-maid-sidebar-footer')).toBe(true)
+    const footer = document.querySelector<HTMLElement>('[data-maid-sidebar-footer]')!
+    const cordis = footer.querySelector<HTMLElement>('[data-cordis-badge]')!
+    const settings = footer.querySelector<HTMLElement>("[data-slot='sidebar.settings']")!
+    expect(cordis.compareDocumentPosition(settings) & Node.DOCUMENT_POSITION_FOLLOWING).not.toBe(0)
 
     await fiber.dispose()
     expect(document.querySelector('[data-maid-sidebar-footer]')).toBeNull()
@@ -850,17 +856,26 @@ describe('Maid Atelier skin apply', () => {
     expect(darkTerminalRule).toContain('--dsw-alias-label-primary: #edf1fa')
   })
 
-  it('scales the lower sidebar swag at its source aspect ratio', () => {
+  it('uses the sidebar swag height as a footer floor while plugin actions grow upward', () => {
     const sidebarInnerRule = CSS.match(
       /:is\(\[data-pane='sidebar'\], \[class\*='sidebarCol'\]\) > div\s*\{([^}]*)\}/s,
     )?.[1] ?? ''
     const footRule = CSS.match(/\[data-maid-sidebar-footer\]\s*\{([^}]*)\}/s)?.[1] ?? ''
+    const railFootRule = CSS.match(
+      /\[data-maid-sidebar-size='rail'\] \[data-maid-sidebar-footer\]\s*\{([^}]*)\}/s,
+    )?.[1] ?? ''
     const swagRule = CSS.match(/\[data-maid-sidebar-footer\]::before\s*\{([^}]*)\}/s)?.[1] ?? ''
     expect(sidebarInnerRule).not.toContain('container-type')
     expect(footRule).toContain('box-sizing: border-box')
     expect(footRule).toContain('position: relative')
-    expect(footRule).toContain('flex: 0 0 calc(var(--maid-sidebar-swag-height) + 82px)')
+    expect(footRule).toContain('flex: 0 0 auto')
+    expect(footRule).not.toContain('flex: 0 0 calc(')
+    expect(footRule).toContain('min-height: calc(var(--maid-sidebar-swag-height) + 82px)')
     expect(footRule).toContain('padding: calc(var(--maid-sidebar-swag-height) + 2px) 18px 22px')
+    expect(railFootRule).toContain('flex: 0 0 auto')
+    expect(railFootRule).toContain('min-height: 54px')
+    expect(railFootRule).not.toContain('flex-basis: 54px')
+    expect(railFootRule).toContain('gap: 2px')
     expect(swagRule).toContain('height: var(--maid-sidebar-swag-height)')
     expect(swagRule).toContain('background: var(--maid-sidebar-swag-art) center top / 100% 100% no-repeat')
     expect(swagRule).toContain('brightness(1.1)')

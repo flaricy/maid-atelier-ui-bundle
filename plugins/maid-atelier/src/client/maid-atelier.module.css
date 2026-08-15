@@ -825,7 +825,10 @@ body[data-dsh-maid-atelier] [data-maid-sidebar-footer] {
   box-sizing: border-box;
   position: relative;
   isolation: auto;
-  flex: 0 0 calc(var(--maid-sidebar-swag-height) + 82px);
+  /* Footer actions are a dynamic DSH slot. Keep the ornament height as the
+     floor, but let Cordis and future actions grow upward into the scrollable
+     workspace region instead of pushing Settings below the viewport. */
+  flex: 0 0 auto;
   min-height: calc(var(--maid-sidebar-swag-height) + 82px);
   padding: calc(var(--maid-sidebar-swag-height) + 2px) 18px 22px;
   border: 0;
@@ -978,8 +981,9 @@ body[data-dsh-maid-atelier][data-maid-sidebar-size='rail'] [data-maid-sidebar-fo
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 54px;
+  flex: 0 0 auto;
   min-height: 54px;
+  gap: 2px;
   padding: 5px;
   background: none;
   box-shadow: none;
