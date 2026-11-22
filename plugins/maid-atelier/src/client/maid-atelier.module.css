@@ -47,6 +47,52 @@ body[data-dsh-maid-atelier] {
   --dsw-specific-input-major: rgba(255, 253, 248, 0.94);
   --dsw-specific-selector: rgba(226, 232, 246, 0.9);
   --dsw-specific-sidebar-fill: rgba(11, 25, 66, 0.88);
+
+  /* Plugin-owned panels (the plugin market, and any plugin that consumes the
+     host alias layer) read every token below. The tokens the two body blocks
+     did not override kept the stock values there, and those surfaces rendered
+     as unthemed islands: segmented tab rows, selected pills, primary buttons,
+     dialogs, toasts, tooltips, scrollbars. Values reuse the palette above
+     where one exists; the error and success hues are new, muted to sit
+     beside the navy and gold. */
+  --dsw-alias-bg-mask-1: rgba(9, 19, 51, 0.45);
+  --dsw-alias-bg-module-platform: rgba(255, 253, 248, 0.7);
+  --dsw-alias-border-l4: rgba(71, 91, 145, 0.42);
+  --dsw-alias-button-ghost-active-border: rgba(197, 164, 104, 0.64);
+  --dsw-alias-button-ghost-active-fill: rgba(197, 164, 104, 0.24);
+  --dsw-alias-button-primary-fill: #536eae;
+  --dsw-alias-button-primary-hover: #405a99;
+  --dsw-alias-button-tool-bar-fill: rgba(255, 253, 248, 0.88);
+  --dsw-alias-button-tool-bar-hover: #ece6d8;
+  --dsw-alias-interactive-bg-hover-danger: rgba(166, 74, 66, 0.14);
+  --dsw-alias-label-dimmed: #a1a8b8;
+  --dsw-alias-label-primary-foreground: #fffaf0;
+  --dsw-alias-link: #536eae;
+  --dsw-alias-menu-group-header-fill: rgba(235, 240, 250, 0.93);
+  --dsw-alias-menu-icon: #4d5d7f;
+  --dsw-alias-scrollbar-bg-l2: rgba(71, 91, 145, 0.28);
+  --dsw-alias-scrollbar-hover-l2: rgba(71, 91, 145, 0.45);
+  --dsw-alias-settings-card-fill: rgba(248, 250, 255, 0.9);
+  --dsw-alias-settings-card-stroke: rgba(71, 91, 145, 0.3);
+  --dsw-alias-state-error-primary: #a84d45;
+  --dsw-alias-state-idle-primary: #6f7c99;
+  --dsw-alias-state-success-primary: #47775e;
+  --dsw-alias-state-success-tertiary: rgba(71, 119, 94, 0.14);
+  --dsw-alias-state-warn-label: #a8823f;
+  --dsw-alias-state-warn-primary: #a8823f;
+  --dsw-alias-state-warn-tertiary: rgba(168, 130, 63, 0.14);
+  --dsw-alias-toast-action: #536eae;
+  --dsw-alias-toast-bg: rgba(248, 250, 255, 0.96);
+  --dsw-alias-toast-label: #172347;
+  --dsw-alias-tooltip-bg: rgba(9, 19, 51, 0.92);
+  --dsw-alias-tooltip-label: #fffaf0;
+
+  /* dsh-market reads these two for its sticky search and category rows.
+     Without them the rows fall back to --dsw-alias-bg-base, which this skin
+     sets to transparent, so cards scroll visibly beneath the row once it
+     pins. Glass, slightly denser once stuck. */
+  --dshm-sticky-bg: var(--maid-glass);
+  --dshm-stuck-bg: rgba(248, 250, 255, 0.94);
 }
 
 body[data-dsh-maid-atelier][data-ds-dark-theme] {
@@ -83,6 +129,43 @@ body[data-dsh-maid-atelier][data-ds-dark-theme] {
   --dsw-specific-input-major: rgba(17, 30, 66, 0.95);
   --dsw-specific-selector: rgba(45, 64, 111, 0.9);
   --dsw-specific-sidebar-fill: rgba(5, 13, 40, 0.9);
+
+  /* Plugin-owned panels, dark variant — see the light block above for why
+     these exist. Values mirror the light mapping onto the dark palette. */
+  --dsw-alias-bg-mask-1: rgba(2, 8, 26, 0.55);
+  --dsw-alias-bg-module-platform: rgba(7, 18, 48, 0.68);
+  --dsw-alias-border-l4: rgba(151, 169, 216, 0.46);
+  --dsw-alias-button-ghost-active-border: rgba(211, 180, 119, 0.66);
+  --dsw-alias-button-ghost-active-fill: rgba(211, 180, 119, 0.24);
+  --dsw-alias-button-primary-fill: #8ca4dc;
+  --dsw-alias-button-primary-hover: #a3b7e5;
+  --dsw-alias-button-tool-bar-fill: rgba(28, 44, 84, 0.94);
+  --dsw-alias-button-tool-bar-hover: #354d88;
+  --dsw-alias-interactive-bg-hover-danger: rgba(198, 110, 102, 0.18);
+  --dsw-alias-label-dimmed: #66769a;
+  --dsw-alias-label-primary-foreground: #15234a;
+  --dsw-alias-link: #9bb0e1;
+  --dsw-alias-menu-group-header-fill: rgba(24, 40, 80, 0.96);
+  --dsw-alias-menu-icon: #bdc9e3;
+  --dsw-alias-scrollbar-bg-l2: rgba(151, 169, 216, 0.3);
+  --dsw-alias-scrollbar-hover-l2: rgba(151, 169, 216, 0.48);
+  --dsw-alias-settings-card-fill: rgba(18, 31, 67, 0.94);
+  --dsw-alias-settings-card-stroke: rgba(151, 169, 216, 0.34);
+  --dsw-alias-state-error-primary: #cf857c;
+  --dsw-alias-state-idle-primary: #96a6c9;
+  --dsw-alias-state-success-primary: #8fc4a5;
+  --dsw-alias-state-success-tertiary: rgba(143, 196, 165, 0.16);
+  --dsw-alias-state-warn-label: #d3b477;
+  --dsw-alias-state-warn-primary: #d3b477;
+  --dsw-alias-state-warn-tertiary: rgba(211, 180, 119, 0.16);
+  --dsw-alias-toast-action: #9bb0e1;
+  --dsw-alias-toast-bg: rgba(13, 25, 59, 0.97);
+  --dsw-alias-toast-label: #e7ecf7;
+  --dsw-alias-tooltip-bg: rgba(2, 8, 26, 0.94);
+  --dsw-alias-tooltip-label: #fffaf0;
+
+  --dshm-sticky-bg: var(--maid-glass);
+  --dshm-stuck-bg: rgba(13, 25, 59, 0.95);
 }
 
 body[data-dsh-maid-atelier] [id='root'] {

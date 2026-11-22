@@ -4,6 +4,12 @@
 
 ### Fixed
 
+- Covered the alias design tokens that plugin-owned panels read (the plugin
+  market's segmented tab rows, selected pills, primary buttons, dialogs,
+  toasts, tooltips, scrollbars) so those surfaces no longer render with stock
+  colors inside the skin, in both light and dark modes. Gave the market's
+  sticky rows a glass surface (`--dshm-sticky-bg` / `--dshm-stuck-bg`) so
+  cards no longer scroll visibly beneath them.
 - Prevented Cordis Plugin and future `sidebar.footer.action` entries from
   pushing Settings below the viewport. The footer now grows into the
   scrollable workspace in both wide and rail layouts.
